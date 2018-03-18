@@ -1,3 +1,7 @@
-1 - Arrumar desenho de labirintos com x e/ou y >= 10
+﻿1 - Arrumar desenho de labirintos com x e/ou y >= 10
 
 2 - Colocar obstáculos na vertical
+
+
+
+BUCETUDA
