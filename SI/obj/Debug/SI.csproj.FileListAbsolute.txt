@@ -1,0 +1,2 @@
+C:\Users\T-Gamer\source\repos\SI\SI\obj\Debug\SI.csprojResolveAssemblyReference.cache
+C:\Users\T-Gamer\source\repos\SI\SI\obj\Debug\SI.csproj.CoreCompileInputs.cache

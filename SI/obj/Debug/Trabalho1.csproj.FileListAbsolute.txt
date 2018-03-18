@@ -1,0 +1,7 @@
+C:\Users\T-Gamer\source\repos\SI\SI\bin\Debug\SI.exe.config
+C:\Users\T-Gamer\source\repos\SI\SI\bin\Debug\SI.exe
+C:\Users\T-Gamer\source\repos\SI\SI\bin\Debug\SI.pdb
+C:\Users\T-Gamer\source\repos\SI\SI\obj\Debug\Trabalho1.csproj.CoreCompileInputs.cache
+C:\Users\T-Gamer\source\repos\SI\SI\obj\Debug\SI.exe
+C:\Users\T-Gamer\source\repos\SI\SI\obj\Debug\SI.pdb
+C:\Users\T-Gamer\source\repos\SI\SI\obj\Debug\Trabalho1.csprojResolveAssemblyReference.cache
