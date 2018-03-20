@@ -40,7 +40,7 @@ namespace Trabalho1
         {
             if (chegou(l) == 1)
             {
-                return 1;
+                return 0;
             }
             k = direcoes[r.Next(direcoes.Length)];
             switch (k)

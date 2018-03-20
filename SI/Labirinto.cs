@@ -74,6 +74,13 @@ namespace Trabalho1
             {
                 for (int j = 0; j < colunas; j++)
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    if (m[i, j].Equals("A"))
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    if (m[i, j].Equals("$"))
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    if (m[i, j].Equals("X"))
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("{0}  ", m[i, j], i);
                 }
                 Console.Write("\n");

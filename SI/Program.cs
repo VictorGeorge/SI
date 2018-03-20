@@ -76,12 +76,19 @@ namespace Trabalho1
                 k = a.deliberar(maze);
                 if (k == 0)
                 {
-                    achou = false;
+                    achou = true;
+                    
                 }
+                else
+                {
+                    System.Threading.Thread.Sleep(200);
+                    Console.Clear();
+                }
+                    
             }
-            Console.WriteLine("ACHOOOOOOOOOOOOOOOOOOOO\n");
-            Console.WriteLine();
-            Console.ReadLine();
+            System.Threading.Thread.Sleep(200);
+            Console.WriteLine("\n ACHOOOOOOOOOOOOOOOOOOOO\n");
+            System.Threading.Thread.Sleep(10000);
         }
     }
 }
