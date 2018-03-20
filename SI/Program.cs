@@ -21,7 +21,6 @@ namespace Trabalho1
             colunas = Convert.ToInt32(Console.ReadLine()) + 1;
 
             Labirinto maze = new Labirinto(linhas, colunas);
-            Console.WriteLine();
 
             maze.preencheLabirinto();
             while (!fechou1)
@@ -80,9 +79,8 @@ namespace Trabalho1
                     achou = false;
                 }
             }
-
+            Console.WriteLine("ACHOOOOOOOOOOOOOOOOOOOO\n");
             Console.WriteLine();
-            maze.mostraLabirinto();
             Console.ReadLine();
         }
     }

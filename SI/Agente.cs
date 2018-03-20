@@ -18,7 +18,17 @@ namespace Trabalho1
             posX = 1;
             posY = 1;
             r = new Random();
-            direcoes = new char[] { 'c', 'b', 'd', 'e' };
+            direcoes = new char[] { 'c', 'b', 'd', 'e', 'q', 'w', 'r', 't' }; 
+            /*
+             c -> cima
+             b -> baixo
+             d -> direita
+             e -> esquerda
+             q -> diagonal superior esquerda
+             w -> diagonal superior direita
+             r -> diagonal inferior esquerda
+             t -> diagonal inferior direita
+            */
         }
 
         public void entraLabirinto(Labirinto l)
@@ -28,7 +38,10 @@ namespace Trabalho1
 
         public int deliberar(Labirinto l)
         {
-
+            if (chegou(l) == 1)
+            {
+                return 1;
+            }
             k = direcoes[r.Next(direcoes.Length)];
             switch (k)
             {
@@ -48,10 +61,6 @@ namespace Trabalho1
                         l.m[posX, posY] = ".";
                         l.m[posX - 1, posY] = "A";
                         posX--;
-                        if (posX < 0)
-                        {
-                            posX++;
-                        }
                         Console.WriteLine("\n");
                         l.mostraLabirinto();
                         return 1;
@@ -76,10 +85,6 @@ namespace Trabalho1
                         l.m[posX, posY] = ".";
                         l.m[posX + 1, posY] = "A";
                         posX++;
-                        if (posX > l.linhas)
-                        {
-                            posX--;
-                        }
                         Console.WriteLine("\n");
                         l.mostraLabirinto();
                         return 1;
@@ -100,10 +105,6 @@ namespace Trabalho1
                         l.m[posX, posY] = ".";
                         l.m[posX, posY - 1] = "A";
                         posY--;
-                        if (posY < 0)
-                        {
-                            posY++;
-                        }
                         Console.WriteLine("\n");
                         l.mostraLabirinto();
                         return 1;
@@ -128,10 +129,102 @@ namespace Trabalho1
                         l.m[posX, posY] = ".";
                         l.m[posX, posY + 1] = "A";
                         posY++;
-                        if (posY > l.linhas)
-                        {
-                            posY--;
-                        }
+                        Console.WriteLine("\n");
+                        l.mostraLabirinto();
+                        return 1;
+                    }
+                    break;
+                case 'q':
+                    if (l.m[posX - 1, posY - 1] == "X")
+                    {
+                        break;
+                    }
+                    else if (l.m[posX - 1, posY - 1] == "$")
+                    {
+                        l.m[posX, posY] = ".";
+                        return 0;
+                    }
+                    else if (l.m[posX - 1, posY - 1] == ".")
+                    {
+                        l.m[posX, posY] = ".";
+                        l.m[posX - 1, posY - 1] = "A";
+                        posY--;
+                        posX--;
+                        Console.WriteLine("\n");
+                        l.mostraLabirinto();
+                        return 1;
+                    }
+                    break;
+                case 'w':
+                    if (posY + 1 >= l.colunas)
+                    {
+                        break;
+                    }
+                    else if (l.m[posX - 1, posY + 1] == "X")
+                    {
+                        break;
+                    }
+                    else if (l.m[posX - 1, posY + 1] == "$")
+                    {
+                        l.m[posX, posY] = ".";
+                        return 0;
+                    }
+                    else if (l.m[posX - 1, posY + 1] == ".")
+                    {
+                        l.m[posX, posY] = ".";
+                        l.m[posX - 1, posY + 1] = "A";
+                        posY++;
+                        posX--;
+                        Console.WriteLine("\n");
+                        l.mostraLabirinto();
+                        return 1;
+                    }
+                    break;
+                case 't':
+                    if (posY + 1 >= l.colunas || posX + 1 >= l.linhas)
+                    {
+                        break;
+                    }
+                    else if (l.m[posX + 1, posY + 1] == "X")
+                    {
+                        break;
+                    }
+                    else if (l.m[posX + 1, posY + 1] == "$")
+                    {
+                        l.m[posX, posY] = ".";
+                        return 0;
+                    }
+                    else if (l.m[posX + 1, posY + 1] == ".")
+                    {
+                        l.m[posX, posY] = ".";
+                        l.m[posX + 1, posY + 1] = "A";
+                        posY++;
+                        posX++;
+                        Console.WriteLine("\n");
+                        l.mostraLabirinto();
+                        return 1;
+                    }
+                    break;
+                case 'r':
+                    if (posX + 1 >= l.linhas)
+                    {
+                        break;
+                    }
+                    else if (l.m[posX + 1, posY - 1] == "X")
+                    {
+                        break;
+                    }
+                    else if (l.m[posX + 1, posY - 1] == "$")
+                    {
+                        l.m[posX, posY] = ".";
+                        return 0;
+                    }
+                    else if (l.m[posX + 1, posY - 1] == ".")
+                    {
+                        l.m[posX, posY] = ".";
+                        l.m[posX + 1, posY - 1] = "A";
+                        posX++;
+                        posY--;
                         Console.WriteLine("\n");
                         l.mostraLabirinto();
                         return 1;
@@ -139,6 +232,23 @@ namespace Trabalho1
                     break;
             }
             return 1;
+        }
+        public int chegou(Labirinto l)
+        {
+            if (posX + 1>= l.linhas || posY + 1>= l.colunas)
+            {
+                return 0;
+            }
+            else if (l.m[posX + 1, posY] == "$" || l.m[posX - 1, posY] == "$" || l.m[posX, posY + 1] == "$" || l.m[posX, posY - 1] == "$" ||
+            l.m[posX + 1, posY + 1] == "$" || l.m[posX + 1, posY - 1] == "$" || l.m[posX - 1, posY - 1] == "$" || l.m[posX - 1, posY + 1] == "$") // diagonais
+            {
+                    return 1;
+            }
+            else
+            {
+                return 0;
+            }
+           
         }
     }
 }
