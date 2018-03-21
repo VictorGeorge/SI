@@ -41,7 +41,7 @@ namespace Trabalho1
             }
         }
 
-        public int geraObstatulo(int x1, int y1, int x2, int y2)
+        public int geraObstatuloHoriz(int x1, int y1, int x2, int y2)
         {
             if (x1 != x2)
             {
@@ -60,6 +60,33 @@ namespace Trabalho1
                     else
                     {
                         m[x1, i] = "X";
+                    }
+
+                }
+
+            }
+            return 1;
+        }
+
+        public int geraObstatuloVertical(int x1, int y1, int x2, int y2)
+        {
+            if (y1 != y2)
+            {
+                Console.WriteLine("Entrada invalida, coordenadas precisam do mesmo y");
+                return 0;
+            }
+            else
+            {
+                for (int i = x1; i <= x2; i++)
+                {
+                    if (x1 < 0 || x1 > (linhas - 1) || y1 < 0 || y2 < 0 || y1 > (colunas - 1) || y2 > (colunas - 1))
+                    {
+                        Console.WriteLine("Entrada invalida, coordenadas fora do labirinto\n");
+                        return 0;
+                    }
+                    else
+                    {
+                        m[i, y1] = "X";
                     }
 
                 }

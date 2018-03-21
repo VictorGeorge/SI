@@ -10,7 +10,7 @@ namespace Trabalho1
     {
         static void Main(string[] args)
         {
-            int linhas, colunas, x1, y1, x2, y2, pos1, pos2;
+            int linhas, colunas, x1, y1, x2, y2, pos1, pos2, obstaculo;
             bool fechou1 = false;
             bool fechou2 = false;
             Agente a = new Agente();
@@ -27,6 +27,10 @@ namespace Trabalho1
             {
                 Console.Clear();
                 maze.mostraLabirinto();
+                Console.WriteLine("\nDeseja inserir um obstáculo na horizontal ou na vertical? horizontal(1) vertical(0)\n");
+                Console.WriteLine("\n(1) Horizontal\n");
+                Console.WriteLine("\n(2) Vertical\n");
+                obstaculo = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("\nInsira as coordenadas do obstaculo, uma de cada vez, no formato (x1,y1), (x2,y2)\n");
                 Console.WriteLine("X1: ");
                 x1 = Convert.ToInt32(Console.ReadLine());
@@ -37,14 +41,30 @@ namespace Trabalho1
                 Console.WriteLine("Y2: ");
                 y2 = Convert.ToInt32(Console.ReadLine());
 
-                if (maze.geraObstatulo(x1, y1, x2, y2) == 1)
+                if (obstaculo == 1)
                 {
-                    Console.Clear();
-                    maze.mostraLabirinto();
-                    Console.WriteLine("Deseja inserir outro obstaculo? sim(1) não(0)\n");
-                    if (Convert.ToInt32(Console.ReadLine()) == 0)
+                    if (maze.geraObstatuloHoriz(x1, y1, x2, y2) == 1)
                     {
-                        fechou1 = true;
+                        Console.Clear();
+                        maze.mostraLabirinto();
+                        Console.WriteLine("Deseja inserir outro obstaculo? sim(1) não(0)\n");
+                        if (Convert.ToInt32(Console.ReadLine()) == 0)
+                        {
+                            fechou1 = true;
+                        }
+                    }
+                }
+                else if (obstaculo == 2)
+                {
+                    if (maze.geraObstatuloVertical(x1, y1, x2, y2) == 1)
+                    {
+                        Console.Clear();
+                        maze.mostraLabirinto();
+                        Console.WriteLine("Deseja inserir outro obstaculo? sim(1) não(0)\n");
+                        if (Convert.ToInt32(Console.ReadLine()) == 0)
+                        {
+                            fechou1 = true;
+                        }
                     }
                 }
             }
@@ -81,7 +101,7 @@ namespace Trabalho1
                 }
                 else
                 {
-                    System.Threading.Thread.Sleep(200);
+                    System.Threading.Thread.Sleep(150);
                     Console.Clear();
                 }
                     
