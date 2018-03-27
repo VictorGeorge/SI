@@ -12,16 +12,12 @@ namespace Trabalho1
         public Random r;
         public char[] direcoes;
         public char k;
-        public List<Estado> fechada;
-        public List<Estado> aberta;
 
         public Agente()
         {
             posX = 1;
             posY = 1;
             r = new Random();
-            fechada = new List<Estado>();
-            aberta = new List<Estado>();
 
             direcoes = new char[] { 'c', 'b', 'd', 'e', 'q', 'w', 'r', 't' };
             /*
