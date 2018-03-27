@@ -31,7 +31,6 @@ namespace Trabalho1
             {
                 m[0, j] = Convert.ToString(j);
             }
-
             for (i = 1; i < linhas; i++)
             {
                 for (j = 1; j < colunas; j++)
@@ -97,6 +96,7 @@ namespace Trabalho1
 
         public void mostraLabirinto()
         {
+
             for (int i = 0; i < linhas; i++)
             {
                 for (int j = 0; j < colunas; j++)
@@ -108,7 +108,60 @@ namespace Trabalho1
                         Console.ForegroundColor = ConsoleColor.Green;
                     if (m[i, j].Equals("X"))
                         Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write("{0}  ", m[i, j], i);
+                    if (m[i, j].Equals("."))
+                    {
+                        Console.Write("|     ");
+                    }
+                    else
+                    {   if(Console.ForegroundColor == ConsoleColor.Green)
+                        {
+                            Console.ResetColor();
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("|");
+                            Console.ResetColor();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write("  {0}  ", m[i, j]);
+                            Console.ResetColor();
+                        }
+                        else if(Console.ForegroundColor == ConsoleColor.Red)
+                        {
+                            Console.ResetColor();
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("|");
+                            Console.ResetColor();
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write("  {0}  ", m[i, j]);
+                            Console.ResetColor();
+                        }
+                        else if (Console.ForegroundColor == ConsoleColor.DarkGray)
+                        {
+                            Console.ResetColor();
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("|");
+                            Console.ResetColor();
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                            Console.Write("  {0}  ", m[i, j]);
+                        }
+                        else
+                        {
+                            Console.Write("|  {0}  ", m[i, j]);
+                        }
+                    }
+                }
+                Console.Write("|\n");
+
+                for (int k = 0; k<=colunas*6; k++)
+                {
+                    if(k%6 == 0 || k == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("+");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("-");
+                    }
                 }
                 Console.Write("\n");
             }

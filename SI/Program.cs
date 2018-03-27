@@ -10,19 +10,20 @@ namespace Trabalho1
     {
         static void Main(string[] args)
         {
-            int linhas, colunas, x1, y1, x2, y2, pos1, pos2, obstaculo;
+            int linhas, colunas, x1, y1, x2, y2, posxChegada, posyChegada, posxAgente, posyAgente, obstaculo;
             bool fechou1 = false;
             bool fechou2 = false;
-            Agente a = new Agente();
+            Agente agent = new Agente();
 
             Console.WriteLine("Numero de Linhas: ");
             linhas = Convert.ToInt32(Console.ReadLine()) + 1;
             Console.WriteLine("Numero de Colunas: ");
-            colunas = Convert.ToInt32(Console.ReadLine()) + 1;
+            colunas = Convert.ToInt32(Console.ReadLine()) + 1; 
 
             Labirinto maze = new Labirinto(linhas, colunas);
 
             maze.preencheLabirinto();
+
             while (!fechou1)
             {
                 Console.Clear();
@@ -74,18 +75,24 @@ namespace Trabalho1
             {
                 Console.WriteLine("Posição de chegada (x,y): ");
                 Console.WriteLine("PosX: ");
-                pos1 = Convert.ToInt32(Console.ReadLine());
+                posxChegada = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("PosY: ");
-                pos2 = Convert.ToInt32(Console.ReadLine());
+                posyChegada = Convert.ToInt32(Console.ReadLine());
 
-                if (maze.posicionaChegada(pos1, pos2))
+
+                Console.WriteLine("Posição do Agente (x,y): ");
+                Console.WriteLine("PosX: ");
+                posxAgente = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("PosY: ");
+                posyAgente = Convert.ToInt32(Console.ReadLine());
+
+                if (maze.posicionaChegada(posxChegada, posyChegada) && agent.entraLabirinto(maze, posxAgente, posyAgente))
                 {
                     fechou2 = true;
                 }
 
             }
 
-            a.entraLabirinto(maze);
             maze.mostraLabirinto();
 
             bool achou = false;
@@ -93,7 +100,7 @@ namespace Trabalho1
 
             while (!achou)
             {
-                k = a.deliberar(maze);
+                k = agent.deliberar(maze);
                 if (k == 0)
                 {
                     achou = true;
