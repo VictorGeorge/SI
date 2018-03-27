@@ -8,12 +8,7 @@ namespace Trabalho1
 {
     class Estado
     {
-        public int posX, posY, g, h;
+        public int posX, posY, g, h, f;
         public Estado pai;
-
-        public Estado()
-        {
-            g = 0;
-        }
     }
 }

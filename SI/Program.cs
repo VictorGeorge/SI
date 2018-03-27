@@ -14,11 +14,14 @@ namespace Trabalho1
             bool fechou1 = false;
             bool fechou2 = false;
             Agente agent = new Agente();
+            Estado estadoFinal = new Estado();
+            Estado inicial = new Estado();
+            AEstrela algoritmo = new AEstrela();
 
             Console.WriteLine("Numero de Linhas: ");
             linhas = Convert.ToInt32(Console.ReadLine()) + 1;
             Console.WriteLine("Numero de Colunas: ");
-            colunas = Convert.ToInt32(Console.ReadLine()) + 1; 
+            colunas = Convert.ToInt32(Console.ReadLine()) + 1;
 
             Labirinto maze = new Labirinto(linhas, colunas);
 
@@ -88,14 +91,27 @@ namespace Trabalho1
 
                 if (maze.posicionaChegada(posxChegada, posyChegada) && agent.entraLabirinto(maze, posxAgente, posyAgente))
                 {
+                    inicial.posX = posxAgente;
+                    inicial.posY = posyAgente;
+                    inicial.f = 0;
+                    inicial.g = 0;
+                    inicial.pai = null;
+
+                    estadoFinal.posX = posxChegada;
+                    estadoFinal.posY = posyChegada;
+                    estadoFinal.g = 0;
+                    estadoFinal.f = 0;
+                    estadoFinal.pai = null;
+
                     fechou2 = true;
                 }
 
             }
 
             maze.mostraLabirinto();
+            algoritmo.Pathfind(agent, inicial, estadoFinal, maze);
 
-            bool achou = false;
+            /*bool achou = false;
             int k;
 
             while (!achou)
@@ -112,7 +128,7 @@ namespace Trabalho1
                     Console.Clear();
                 }
                     
-            }
+            }*/
             System.Threading.Thread.Sleep(200);
             Console.WriteLine("\n ACHOOOOOOOOOOOOOOOOOOOO\n");
             System.Threading.Thread.Sleep(10000);
