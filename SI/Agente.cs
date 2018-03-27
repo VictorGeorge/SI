@@ -33,6 +33,12 @@ namespace Trabalho1
             }
         }
 
+        public void ir(Labirinto l, Estado atual, Estado antigo)
+        {
+            l.m[atual.posX, atual.posY] = "A";
+            l.m[antigo.posX, antigo.posY] = ".";
+        }
+
         public int chegou(Labirinto l)
         {
             if (posX + 1 >= l.linhas || posY + 1 >= l.colunas)
