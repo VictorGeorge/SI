@@ -11,6 +11,7 @@ namespace Trabalho1
     {
         public int posX, posY, total = 0;
         public Random r;
+        int cont = 0;
 
         public Agente()
         {
@@ -33,15 +34,16 @@ namespace Trabalho1
             }
         }
 
-        public void ir(Labirinto l, Estado atual, Estado antigo)
+        public void ir(Labirinto l, Estado atual, Estado antigo, int Animacao)
         {
-            if ((atual.posX != antigo.posX) && (atual.posY != antigo.posY)) // Impedindo primeiro caso de trocar
+            if (Animacao == 1)
             {
                 l.m[atual.posX, atual.posY] = "A";
-                l.m[antigo.posX, antigo.posY] = "P";
-                this.posX = atual.posX;
-                this.posY = atual.posY;
+                l.m[antigo.posX, antigo.posY] = cont.ToString();
             }
+            this.posX = atual.posX;
+            this.posY = atual.posY;
+            cont++;
         }
 
         public int chegou(Labirinto l)

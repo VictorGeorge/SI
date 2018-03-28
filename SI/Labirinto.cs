@@ -10,6 +10,7 @@ namespace Trabalho1
     {
         public String[,] m;
         public int linhas, colunas;
+        int acao;
 
         public Labirinto(int x, int y)
         {
@@ -108,6 +109,8 @@ namespace Trabalho1
                         Console.ForegroundColor = ConsoleColor.Green;
                     if (m[i, j].Equals("X"))
                         Console.ForegroundColor = ConsoleColor.DarkGray;
+                    if (m[i, j].Equals("@"))
+                        Console.ForegroundColor = ConsoleColor.Green;
                     if (m[i, j].Equals("."))
                     {
                         Console.Write("|     ");
@@ -144,7 +147,10 @@ namespace Trabalho1
                         }
                         else
                         {
-                            Console.Write("|  {0}  ", m[i, j]);
+                            if(m[i, j].Length > 1)
+                                Console.Write("|  {0} ", m[i, j]);
+                            else
+                                Console.Write("|  {0}  ", m[i, j]);
                         }
                     }
                 }
@@ -167,6 +173,46 @@ namespace Trabalho1
             }
         }
 
+        public void mostraCaminho(Estado state, Labirinto maze)
+        {
+            List<Estado> Invertida;
+            Invertida = new List<Estado>();
+            Estado atual, ondeEstou;
+            while (state.pai != null)
+            {
+                Invertida.Add(state);
+                //m[state.posX, state.posY] = "@";
+                state = state.pai;
+            }
+            Invertida.Add(state);
+            //m[state.posX, state.posY] = "@";
+            Invertida.Reverse();
+            while (Invertida.Any())
+            {
+                Console.WriteLine("Deseja andar ou ver posição? 0 - Andar  1 - Ver Posição");
+                acao = Convert.ToInt32(Console.ReadLine());
+                if(acao == 0)
+                {
+                    Console.Clear();
+                    atual = Invertida[0];
+                    Invertida.RemoveAt(0);
+                    if (Invertida.Any())
+                        ondeEstou = Invertida[0];
+                    else
+                        break;
+                    m[ondeEstou.posX, ondeEstou.posY] = "A";
+                    m[atual.posX, atual.posY] = "@";
+                    maze.mostraLabirinto();
+                }
+                else{
+                    Console.Clear();
+                    atual = Invertida[0];
+                    m[atual.posX, atual.posY] = "A";
+                    Console.WriteLine("Posição: X: {0}, Y: {1}", atual.posX, atual.posY);
+                    maze.mostraLabirinto();
+                }
+            }
+        }
         public bool posicionaChegada(int x, int y)
         {
             if (m[x, y] == "X" || x < 0 || x > linhas || y < 0 || y > colunas)

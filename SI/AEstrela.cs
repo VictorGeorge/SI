@@ -10,6 +10,7 @@ namespace Trabalho1
     {
         public List<Estado> Aberta;
         public List<Estado> Fechada;
+        int mostrarAnimacao;
 
         public AEstrela()
         {
@@ -36,10 +37,14 @@ namespace Trabalho1
 
         public void Pathfind(Agente agent, Estado inicial, Estado final, Labirinto maze)
         {
-            maze.mostraLabirinto();
+            Console.WriteLine("Você quer ver a animação? 0 pra não E 1 pra sim");
+            mostrarAnimacao = Convert.ToInt32(Console.ReadLine());
+            if(mostrarAnimacao == 1)
+                maze.mostraLabirinto();
 
             inicial.h = distEuclidiana(inicial, final);
             inicial.g = 0;
+            inicial.pai = null;
             Aberta.Add(inicial);
             Estado atual;
             Estado antigo;
@@ -54,15 +59,22 @@ namespace Trabalho1
                 atual = Aberta[0];
                 Aberta.RemoveAt(0);
                 Fechada.Add(atual);
-                agent.ir(maze, atual, antigo);
-                maze.mostraLabirinto();
-                System.Threading.Thread.Sleep(350);
-                if(atual.posX == final.posX && atual.posY == final.posY)
+                agent.ir(maze, atual, antigo, mostrarAnimacao);
+                if (mostrarAnimacao == 1)
+                {
+                    maze.mostraLabirinto();
+                    System.Threading.Thread.Sleep(150);
+                    Console.Clear();
+                }
+                    if (atual.posX == final.posX && atual.posY == final.posY)
                 {
                     break;
                 }
-                adicionaVizinhos(maze, atual, final, agent);     
+                adicionaVizinhos(maze, atual, final, agent);
             }
+            maze.mostraCaminho(atual, maze);
+            //Console.Clear();
+            maze.mostraLabirinto();
         }
 
         public void adicionaVizinhos(Labirinto l, Estado atual, Estado final, Agente agent)
@@ -106,7 +118,7 @@ namespace Trabalho1
   
                             if (melhorCusto < auxiliar.g)
                             {
-                                auxiliar.g = melhorCusto;
+                                auxiliar.g += melhorCusto;
                                 auxiliar.f = auxiliar.g + auxiliar.h;
                                 auxiliar.pai = atual;
                             }

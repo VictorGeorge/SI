@@ -130,7 +130,7 @@ namespace Trabalho1
                     
             }*/
             System.Threading.Thread.Sleep(200);
-            Console.WriteLine("\n ACHOOOOOOOOOOOOOOOOOOOO\n");
+            Console.WriteLine("\n Achou\n");
             System.Threading.Thread.Sleep(10000);
         }
     }
