@@ -35,8 +35,13 @@ namespace Trabalho1
 
         public void ir(Labirinto l, Estado atual, Estado antigo)
         {
-            l.m[atual.posX, atual.posY] = "A";
-            l.m[antigo.posX, antigo.posY] = ".";
+            if ((atual.posX != antigo.posX) && (atual.posY != antigo.posY)) // Impedindo primeiro caso de trocar
+            {
+                l.m[atual.posX, atual.posY] = "A";
+                l.m[antigo.posX, antigo.posY] = "P";
+                this.posX = atual.posX;
+                this.posY = atual.posY;
+            }
         }
 
         public int chegou(Labirinto l)

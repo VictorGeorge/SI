@@ -19,7 +19,19 @@ namespace Trabalho1
 
         public int distEuclidiana(Estado atual, Estado final)
         {
-            return (int)Math.Floor(Math.Sqrt(Math.Pow(final.posX - atual.posX, 2) + Math.Pow(final.posY - atual.posY, 2)) * 10);
+            int absX = Math.Abs(atual.posX - final.posX);
+            int absY = Math.Abs(atual.posY - final.posY);
+            int h;
+
+            if(absX > absY)
+            {
+                h = 14 * absY + 10 * (absX - absY);
+            }
+            else
+            {
+                h = 14 * absX + 10 * (absY - absX);
+            }
+            return h;
         }
 
         public void Pathfind(Agente agent, Estado inicial, Estado final, Labirinto maze)
@@ -27,6 +39,7 @@ namespace Trabalho1
             maze.mostraLabirinto();
 
             inicial.h = distEuclidiana(inicial, final);
+            inicial.g = 0;
             Aberta.Add(inicial);
             Estado atual;
             Estado antigo;
@@ -35,46 +48,35 @@ namespace Trabalho1
 
             while (Aberta.Any())
             {
+                Console.Clear();
                 Aberta.Sort((x, y) => x.f.CompareTo(y.f)); // sort
                 antigo = atual;
                 atual = Aberta[0];
-
-                agent.ir(maze, atual, antigo);
-                maze.mostraLabirinto();
-                System.Threading.Thread.Sleep(150);
-                Console.Clear();
-
                 Aberta.RemoveAt(0);
                 Fechada.Add(atual);
-
+                agent.ir(maze, atual, antigo);
+                maze.mostraLabirinto();
+                System.Threading.Thread.Sleep(350);
                 if(atual.posX == final.posX && atual.posY == final.posY)
                 {
                     break;
                 }
-
-                adicionaVizinhos(maze, atual, final, agent);
+                adicionaVizinhos(maze, atual, final, agent);     
             }
         }
 
         public void adicionaVizinhos(Labirinto l, Estado atual, Estado final, Agente agent)
         {
             Boolean achouVizinhoAberta = false;
+            Boolean achouVizinhoFechada = false;
             Estado auxiliar = new Estado();
 
-            for (int x = agent.posX-1; x < agent.posX+1; x++)
+            for (int x = agent.posX-1; x <= agent.posX+1; x++)
             {
-                for (int y = agent.posY - 1; y < agent.posX + 1; y++)
+                for (int y = agent.posY - 1; y <= agent.posY+1; y++)
                 {
-                    if (x > 0 && x < l.linhas && y > 0 && y < l.colunas && l.m[x, y] != "X")
+                    if (x > 0 && x < l.linhas && y > 0 && y < l.colunas && l.m[x, y] != "X" && (x != agent.posX || y != agent.posY))
                     {
-                        foreach (Estado e in Fechada) // verifica se já esta na lista fechada
-                        {
-                            if (e.posX == x && e.posY == y)
-                            {
-                               // flag = false;
-                            }
-                        }
-
                         foreach (Estado e in Aberta) // verifica se já não esta na lista aberta
                         {
                             if (e.posX == x && e.posY == y)
@@ -84,31 +86,34 @@ namespace Trabalho1
                                 break;
                             }
                         }
-
-                        if (!achouVizinhoAberta)
+                        if (Fechada.Contains(auxiliar))
+                            break;
+                        if (!achouVizinhoAberta) // Nao achou vizinho na lista Aberta
                         {
                             Estado estate = new Estado();
                             estate.posX = x;
                             estate.posY = y;
                             estate.pai = atual;
-                            estate.g = (int)Math.Floor(Math.Sqrt(Math.Pow(x - atual.posX, 2) + Math.Pow(y - atual.posY, 2)) * 10);
-                            estate.h = (int)Math.Floor(Math.Sqrt(Math.Pow(final.posX - x, 2) + Math.Pow(final.posY - y, 2)) * 10);
+                            estate.g = distEuclidiana(estate, atual) + atual.g;
+                            estate.h = distEuclidiana(estate, final);
                             estate.f = estate.g + estate.h;
                             Aberta.Add(estate);
                         }                       
                         else
                         {
-                            int k = (int)Math.Floor(Math.Sqrt(Math.Pow(x - atual.posX, 2) + Math.Pow(y - atual.posY, 2)) * 10);
+                            int k = distEuclidiana(auxiliar, atual);
+                            int melhorCusto = k + atual.g;
   
-                            if (k < atual.g)
+                            if (melhorCusto < auxiliar.g)
                             {
-                                auxiliar.g = (int)Math.Floor(Math.Sqrt(Math.Pow(x - atual.posX, 2) + Math.Pow(y - atual.posY, 2)) * 10);
+                                auxiliar.g = melhorCusto;
                                 auxiliar.f = auxiliar.g + auxiliar.h;
                                 auxiliar.pai = atual;
                             }
                         } 
                     }
                     achouVizinhoAberta = false;
+                    achouVizinhoFechada = false;
                 }
             }
         }
