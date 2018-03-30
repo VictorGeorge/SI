@@ -4,19 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*Nomes: Victor George e Pedro Vasconcelos
+ *   RA: 1674412 e 1674404
+ * */
+
 namespace Trabalho1
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int linhas, colunas, x1, y1, x2, y2, posxChegada, posyChegada, posxAgente, posyAgente, obstaculo;
+            int linhas, colunas, x1, y1, x2, y2, posxChegada, posyChegada, posxAgente, posyAgente, obstaculo, algoritmo;
             bool fechou1 = false;
             bool fechou2 = false;
             Agente agent = new Agente();
             Estado estadoFinal = new Estado();
             Estado inicial = new Estado();
-            AEstrela algoritmo = new AEstrela();
+            AEstrela aestrela = new AEstrela();
+            HillClimbing hillclimbing = new HillClimbing();
 
             Console.WriteLine("Numero de Linhas: ");
             linhas = Convert.ToInt32(Console.ReadLine()) + 1;
@@ -109,7 +114,13 @@ namespace Trabalho1
             }
 
             maze.mostraLabirinto();
-            algoritmo.Pathfind(agent, inicial, estadoFinal, maze);
+            Console.Clear();
+            Console.WriteLine("Qual algoritmo irá rodar? 0 - A* 1 - Hill Climbing ");
+            algoritmo = Convert.ToInt32(Console.ReadLine());
+            if(algoritmo == 0)
+                aestrela.Pathfind(agent, inicial, estadoFinal, maze);
+            else if (algoritmo == 1)
+                hillclimbing.Pathfind(agent, inicial, estadoFinal, maze);
 
             /*bool achou = false;
             int k;
